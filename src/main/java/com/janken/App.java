@@ -91,11 +91,11 @@ public class App
      * Method to decide who is the winner of the round.
      * @param p1Move Player 1's move. Not necessary to pass lowercase.
      * @param p2Move Player 2's move. Not necessary to pass lowercase.
-     * @return int value of 0 = tie, 1 = p1/player win, 2 = p2/cpu win
+     * @return int value of 0 = tie, 1 = p1/player win, 2 = p2/cpu win. -1 = errorteam
      */
     static int decisionTree(String p1Move,String p2Move)
     {
-        int decision;
+        int decision=-1;
         /*
          * Rock 1
          * Paper 2
