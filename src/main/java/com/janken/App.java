@@ -23,50 +23,43 @@ public class App
     
     public static void main( String[] args )
     {
-        while (!quitGame)
-        {
-            startNewGame();
-        }
+        //We now start by presenting the user a login page. 
+        Session.login();
     }
 
     static void startNewGame()
     {
-        //Logic to execute the first steps of initializing game.
-        //Get input from user to determine game mode. 
+        
         System.out.print("Welcome to Janken! Single player mode? Y/N:");
         String mode = scanner.nextLine().toLowerCase();
-
-        //reset counts
-        roundCount = 0;
-        previousWinner = 0;
-
-
+   
+       //reset counts
+       roundCount = 0;
+        previousWinner = 0;    
+    
         boolean modeSet = false;
         while(!modeSet)
-        {
-
-            //This loop will run until modeSet is true. 
-
-            if(mode.equals("y")||mode.equals("yes"))
             {
-                vsCPU = true;
-                modeSet = true;
+                //This loop will run until modeSet is true. 
+                if(mode.equals("y")||mode.equals("yes"))
+                {
+                    vsCPU = true;
+                    modeSet = true;
+                }
+                else if(mode.equals("n") || mode.equals("no"))
+                {
+                    vsCPU = false;
+                    modeSet = true;
+                }
+                else
+                    System.out.println("Sorry, please try again. ");
             }
-            else if(mode.equals("n") || mode.equals("no"))
-            {
-                vsCPU = false;
-                modeSet = true;
-            }
-            else
-                System.out.println("Sorry, please try again. ");
-        }
-
-        if(vsCPU)
-            SinglePlayer.begin();
-        else
-            TwoPlayer.begin();
-    }
     
+            if(vsCPU)
+                SinglePlayer.begin();
+            else
+                TwoPlayer.begin();
+        }   
     static void gameOver()
     {
         //Method may not be necessary.
@@ -187,7 +180,11 @@ public class App
 
         roundCount++;
         return decision;
+
+        
     }
+
+    
 
 
 }
