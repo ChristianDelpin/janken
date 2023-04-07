@@ -1,10 +1,6 @@
 package com.janken;
 
-import java.util.Optional;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
@@ -79,50 +75,6 @@ public class App
        System.out.println("There are two ways to input your options; either their name, or the corresponding number. The"
        +" options and their strengths/weaknesses are as follows: Rock (1) beats scissors, but loses to paper.\nPaper (2) beats rock, but"
        + " loses to scissors.\nScissors (3) beats paper, but loses to rock. Good luck!");
-    }
-
-    /**
-     * Method to get, update, and/or display the highest score.
-     * 
-     * @param isNewHighScore Boolean variable that will determine whether to overwrite the highscore file or to display the high score.
-     */
-    static void displayHighScore(boolean isNewHighScore)
-    {
-
-        try {
-            File scoreTxt = new File("highscore.txt");
-            if (scoreTxt.exists()) 
-            {
-              //File exists. 
-
-              //Delete file if overwrite no worky??
-            } 
-            else 
-            {
-              //File does not exist.
-
-              scoreTxt.createNewFile();
-              
-              FileWriter writer = new FileWriter(scoreTxt.getName());
-              writer.write("");
-            }
-          } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-          }
-
-        if(isNewHighScore)
-        {
-            //Updates high score and displays new score.
-            //System.out.println();
-
-            String name = scanner.nextLine();
-            
-        }
-        else
-        {
-            //Displays current high score
-        }
     }
 
     /**
