@@ -23,6 +23,9 @@ public class App
         Session.login();
     }
 
+    /**
+     * Performs all initial logic to start a new game.
+     */
     static void startNewGame()
     {
         
@@ -56,11 +59,18 @@ public class App
             else
                 TwoPlayer.begin();
         }   
+
+    /**
+     * If the win condition is met, this method executes.
+     */
     static void gameOver()
     {
         //Method may not be necessary.
     }
 
+    /**
+     * Checks game mode to determine if single player, or 2-player. Then, displays the rules accordingly. 
+     */
     static void displayRules()
     {
        if(vsCPU)
@@ -93,6 +103,11 @@ public class App
          */
         switch(p1Move.toLowerCase())
         {
+
+            /*
+             * This switch case is the same as the one in the master branch, but expanded for
+             * readability, as well as allowing multiple inputs for the user.
+             */
             case "rock":
             case "1":
 
@@ -127,6 +142,7 @@ public class App
                 decision = 0;
         }
         
+        //If there is a winner, then the previous round winner is updated.
         if(decision!=0)
             previousWinner=decision;
 
