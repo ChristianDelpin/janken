@@ -2,24 +2,20 @@ package com.janken;
 
 import java.util.Scanner;
 
-import javax.swing.text.DefaultStyledDocument.ElementSpec;
-
 public class App 
 {
     //The variables within this scope will allow them to be used 
     //within the entire class, and other classes if necessary.
     public static boolean quitGame = false;
     public static boolean vsCPU = false;
-    
-    public static Scanner scanner = new Scanner(System.in);
 
-    public static int score;
-    public static int roundCount = 0;
+    public static int roundCount = 1;
     public static int previousWinner; //Used to determine a streak. Value corresponds to player #. Tie does not affect.
     
     public static void main( String[] args )
     {
-        //We now start by presenting the user a login page. 
+        //We now start by presenting the user a login page.
+        Score.setAllTimeHighscore(); 
         Session.login();
     }
 
@@ -28,13 +24,14 @@ public class App
      */
     static void startNewGame()
     {
-        
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Welcome to Janken! Single player mode? Y/N:");
         String mode = scanner.nextLine().toLowerCase();
-   
+        
+
        //reset counts
-       roundCount = 0;
-        previousWinner = 0;    
+       roundCount = 1;
+       previousWinner = 0;    
     
         boolean modeSet = false;
         while(!modeSet)
@@ -44,14 +41,20 @@ public class App
                 {
                     vsCPU = true;
                     modeSet = true;
+                    //Events.log("Mode set to Singleplayer.");
                 }
                 else if(mode.equals("n") || mode.equals("no"))
                 {
                     vsCPU = false;
                     modeSet = true;
+                    //Events.log("Mode set to Two Player.");
                 }
                 else
+                {
                     System.out.println("Sorry, please try again. ");
+                    System.out.print("Welcome to Janken! Single player mode? Y/N:");
+                    mode = scanner.nextLine().toLowerCase();
+                }
             }
     
             if(vsCPU)
@@ -61,11 +64,12 @@ public class App
         }   
 
     /**
-     * If the win condition is met, this method executes.
+     * If a player decides to end the game, then <b>gameOver()</b> is called. <br>
+     * Method checks if there is a new high score, and provides a brief game summary.
      */
     static void gameOver()
     {
-        //Method may not be necessary.
+        
     }
 
     /**
@@ -80,20 +84,24 @@ public class App
        else
        {
         System.out.println("In two player mode, player 1 will make their choice first by typing in their respective option."
-        +"\nThen, player 2 will make their choice, and the winner will be displayed.");
+        +"\nThen, player 2 will make their choice.");
        }
        System.out.println("There are two ways to input your options; either their name, or the corresponding number. The"
-       +" options and their strengths/weaknesses are as follows: Rock (1) beats scissors, but loses to paper.\nPaper (2) beats rock, but"
-       + " loses to scissors.\nScissors (3) beats paper, but loses to rock. Good luck!");
+       +" options and their strengths/weaknesses are as follows:\nRock (1) beats scissors, but loses to paper.\nPaper (2) beats rock, but"
+       +" loses to scissors.\nScissors (3) beats paper, but loses to rock. Good luck!");
+
+       System.out.println();
+       Events.log("Displayed rules.");
     }
 
     /**
      * Method to decide who is the winner of the round.
      * @param p1Move Player 1's move. Not necessary to pass lowercase.
-     * @param p2Move Player 2's move. Not necessary to pass lowercase.
-     * @return int value of 0 = tie, 1 = p1/player win, 2 = p2/cpu win. -1 = errorteam
+     * @param p2OrCPUMove Player 2 or CPU's move. Not necessary to pass lowercase.
+     * @return int value of 0 = tie, 1 = p1/player win, 2 = p2/cpu win. -1 = error
+     * 
      */
-    static int decisionTree(String p1Move,String p2Move)
+    static int decisionTree(String p1Move,String p2OrCPUMove)
     {
         int decision=-1;
         /*
@@ -111,9 +119,9 @@ public class App
             case "rock":
             case "1":
 
-            if(p2Move.equals("paper")||p2Move.equals("2"))
+            if(p2OrCPUMove.equals("paper")||p2OrCPUMove.equals("2"))
                 decision = 2;
-            else if(p2Move.equals("scissors")||p2Move.equals("3"))
+            else if(p2OrCPUMove.equals("scissors")||p2OrCPUMove.equals("3"))
                 decision = 1;
             else
                 decision = 0;
@@ -122,9 +130,9 @@ public class App
             case "paper":
             case "2":
 
-            if(p2Move.equals("rock")||p2Move.equals("1"))
+            if(p2OrCPUMove.equals("rock")||p2OrCPUMove.equals("1"))
                 decision = 1;
-            else if(p2Move.equals("scissors")||p2Move.equals("3"))
+            else if(p2OrCPUMove.equals("scissors")||p2OrCPUMove.equals("3"))
                 decision = 2;
             else
                 decision = 0;
@@ -134,19 +142,13 @@ public class App
             case "scissor": //typo catch :)
             case "3":
 
-            if(p2Move.equals("paper")||p2Move.equals("2"))
+            if(p2OrCPUMove.equals("paper")||p2OrCPUMove.equals("2"))
                 decision = 1;
-            else if(p2Move.equals("rock")||p2Move.equals("1"))
+            else if(p2OrCPUMove.equals("rock")||p2OrCPUMove.equals("1"))
                 decision = 2;
             else
                 decision = 0;
         }
-        
-        //If there is a winner, then the previous round winner is updated.
-        if(decision!=0)
-            previousWinner=decision;
-
-        roundCount++;
         return decision;
 
         

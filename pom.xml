@@ -4,7 +4,7 @@
   <groupId>com.janken</groupId>
   <artifactId>demo</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
+  <version>1.8</version>
   <name>demo</name>
   <url>http://maven.apache.org</url>
   <dependencies>
