@@ -10,7 +10,8 @@ Rock Paper Scissors in Japanese
 ## How to run janken.jar
 *Must have the JRE installed*
 1. Download the .jar file.
-2. Using a terminal of your choice (Command prompt, Windows Powershell, etc.), open up the folder location of the .jar file.
-3. Run the following command `java -jar janken.jar`.
+  * `.jar` file is located in the release section. You only need `janken.jar`.
+2. Using a terminal of your choice (Command prompt, Windows Powershell, etc.), open up the folder location of the .jar file (`cd <file path>`).
+4. Run the following command `java -jar janken.jar`.
 
 [How to install JRE](https://support.quest.com/kb/4229374/jre-version-1-8-or-above-installation-for-microsoft-windows "JRE installation for Windows")
